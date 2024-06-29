@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      body{
+        font-family: "Poppins", sans-serif;
+      }
+          .logo img {
+            width: 50px;
+            height: 50px;
+            border: 2px solid black;
+            border-radius: 25px;
+        }
+        .navbar {
+            background-color: #6c757d;
+        }
+        .navbar-brand:hover {
+            color: #ddd;
+        }
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+        }
+        .result-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap:20px;
+        }
+        .result-box button {
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            width: 140px;
+            border-radius: 5px;
+            color: white;
+        }
+        .btn-predict {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .form-container {
+            background: #343a40;
+            color: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+        }
+        .btn-purple {
+            background-color: #6f42c1;
+            border: none;
+        }
+        .btn-pink {
+            background-color: #e83e8c;
+            border: none;
+        }
+        .btn-purple:hover {
+            background-color: #5a3581;
+        }
+        .btn-pink:hover {
+            background-color: #c92367;
+        }
+        .btn-predict {
+            background-color: #DFD0B8;
+            color: black; 
+        }
+        .btn-predict:hover {
+            background-color: #948979;
+        }
+        .footer {
+        background-color: #f8f9fa; /* Optional: Add a background color */
+        padding: 10px 0;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        background-color: #6C757D;
+        color:black;
+    }
+    .footer .text-center {
+        text-align: center;
+    }
+    .footer p {
+        margin: 0;
+    }
+   </style>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  </head>
+       
+    <body>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="logo">
+              <img src="{{ url_for('static', filename='imp.png') }}" alt="img">
+            </div>
+            <a class="navbar-brand" href="#">MediWise</a>
+        </div>
+       </nav>
+
+    <div class="container text-center">
+        <h1>MediWise</h1>
+    </div>
+
+    <div class="container mt-4 form-container">
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="symptoms">Type Symptoms</label>
+                <input type="text" class="form-control" name="symptoms" placeholder="use symptoms like itching, vomiting, coughing etc" value="{{symptoms}}">
+            </div>
+            <button class="btn btn-predict">Predict</button>
+        </form>
+    </div>
+
+    <div class="container text-center">
+        <h1 class="mt-4 my-4">Your Personalized Health Insights</h1>
+    </div>
+
+    {% if predicted_disease %}
+    <div class="container">
+        <div class="result-container">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#diseaseModal">Disease</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#descriptionModal">Description</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#precautionModal">Precaution</button>
+            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#medicationModal">Medication</button>
+            <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#workoutsModal">Workout</button>
+            <button class="btn btn-pink" data-bs-toggle="modal" data-bs-target="#dietsModal">Diet</button>
+        </div>
+    </div>
+    {% endif %}
+
+     <!-- ginger template -->
+
+     <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Predicted Disease</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{predicted_disease}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Description</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{dis_des}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Precaution</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+                 {% for i in dis_pre %}
+                   <li>{{ i }}</li>
+                   {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="medicationModal" tabindex="-1" aria-labelledby="medicationModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Medication</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+                {% for i in dis_med %}
+                <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Workout</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              {% for i in dis_wrkout %}
+              <li>{{ i }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #020606; color:white;">
+            <h5 class="modal-title">Diet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              {% for i in dis_die %}
+              <li>{{ i }}</li>
+              {% endfor %}
+           </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <div class="container-fluid">
+          <div class="text-center">
+              <p>COPYRIGHT © 2024 | ALL RIGHTS RESERVED</p>
+          </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
