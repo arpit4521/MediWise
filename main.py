@@ -58,6 +58,10 @@ app = Flask(__name__) #object
 def index():
     return render_template('index.html')
 
+@app.route('/symptoms')
+def symptoms():
+    return render_template('symptoms.html')
+
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
