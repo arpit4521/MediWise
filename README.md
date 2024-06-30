@@ -1,3 +1,6 @@
+## Live Project - https://mediwise.onrender.com
+(Kindly wait some time for getting the project to load)
+
 # MediWise Web Application
 
 This web application provides medical insights based on user-input symptoms. It utilizes a machine learning model trained on medical datasets to provide accurate predictions along with relevant medical information.user can also find list of symptoms from Symptoms page.
@@ -14,6 +17,10 @@ This web application provides medical insights based on user-input symptoms. It 
   - **Diet**: Dietary recommendations for individuals diagnosed with the disease.
   
 - **User-friendly Interface**: The interface is designed to be intuitive, allowing users to easily enter symptoms and receive detailed disease information.
+- **Symptoms Page**: Users can also explore a comprehensive list of symptoms to facilitate accurate input.
+
+## Machine Learning Approach
+- Supervised Learning: The model was trained with a 70% training and 30% testing split on labeled medical datasets. This approach ensures robust prediction capabilities based on learned patterns from labeled symptom-disease relationships.
 
 ## Tech Stack
 
