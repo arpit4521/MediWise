@@ -125,6 +125,8 @@
               <img src="{{ url_for('static', filename='imp.png') }}" alt="img">
             </div>
             <a class="navbar-brand" href="#">MediWise</a>
+            <a class="navbar-brand" href="/symptoms" style="color: black; font-size: 18px;" onmouseover="this.style.color='#ddd'" onmouseout="this.style.color='black' " >Symptoms</a>
+
         </div>
        </nav>
 
@@ -136,7 +138,7 @@
         <form action="/predict" method="post">
             <div class="form-group">
                 <label for="symptoms">Type Symptoms</label>
-                <input type="text" class="form-control" name="symptoms" placeholder="use symptoms like itching, vomiting, coughing etc" value="{{symptoms}}">
+                <input type="text" class="form-control" name="symptoms" placeholder="use symptoms like itching, vomiting, cough etc" value="{{symptoms}}">
             </div>
             <button class="btn btn-predict">Predict</button>
         </form>
